@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@types/node@26.6.10'
+  - '@types/react@19.3.2'
+  - hono@4.13.22
