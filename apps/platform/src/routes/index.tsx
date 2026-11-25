@@ -19,7 +19,9 @@ function HomePage() {
       <h1>Kerja Woy</h1>
       <p>React + Vite + TanStack Router</p>
       <p className="message">{message}</p>
-      <p>Edit <code>src/routes/index.tsx</code> to get started.</p>
+      <p>
+        Edit <code>src/routes/index.tsx</code> to get started.
+      </p>
     </section>
   )
 }

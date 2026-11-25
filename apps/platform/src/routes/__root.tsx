@@ -9,8 +9,12 @@ function RootLayout() {
   return (
     <main>
       <nav>
-        <Link to="/" activeProps={{ className: 'active' }} activeOptions={{ exact: true }}>Home</Link>
-        <Link to="/about" activeProps={{ className: 'active' }}>About</Link>
+        <Link to="/" activeProps={{ className: 'active' }} activeOptions={{ exact: true }}>
+          Home
+        </Link>
+        <Link to="/about" activeProps={{ className: 'active' }}>
+          About
+        </Link>
       </nav>
       <Outlet />
     </main>

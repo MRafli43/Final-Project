@@ -22,11 +22,11 @@ choices in `decision/`.
 
 Every decision must have exactly one of these statuses:
 
-| Status | Meaning |
-| --- | --- |
-| `accepted` | The decision is currently in effect. |
-| `superseeded` | A newer decision replaces it. Link to the replacement record. |
-| `deprecated` | The decision is no longer recommended or in effect, without a replacement. |
+| Status        | Meaning                                                                    |
+| ------------- | -------------------------------------------------------------------------- |
+| `accepted`    | The decision is currently in effect.                                       |
+| `superseeded` | A newer decision replaces it. Link to the replacement record.              |
+| `deprecated`  | The decision is no longer recommended or in effect, without a replacement. |
 
 When replacing a decision, keep the original record, mark it `superseeded`, and
 link both records. When deprecating one, explain why in its notes.
@@ -58,6 +58,16 @@ Related records, replacement links, or deprecation rationale.
 ### Index
 
 - [0001: Use a pnpm workspace](decision/0001-use-pnpm-workspace.md) — `accepted`
+- [0002: Use Oxlint for linting](decision/0002-use-oxlint-for-linting.md) — `accepted`
+- [0003: Use Oxfmt for formatting](decision/0003-use-oxfmt-for-formatting.md) — `accepted`
+- [0004: Use Husky for pre-commit checks](decision/0004-use-husky-for-pre-commit-checks.md) — `accepted`
+- [0005: Use Playwright for root E2E tests](decision/0005-use-playwright-for-root-e2e-tests.md) — `accepted`
+- [0006: Remove the Pullfrog workflow](decision/0006-remove-pullfrog-workflow.md) — `accepted`
+- [0007: Add a basic agents package](decision/0007-add-basic-agents-package.md) — `superseeded`
+- [0008: Establish the Anvia agent foundation](decision/0008-establish-anvia-agent-foundation.md) — `accepted`
+- [0009: Add scoped read-only tools and Node unit tests](decision/0009-add-scoped-read-only-tools.md) — `accepted`
+- [0010: Add a single agent with a fixed workflow](decision/0010-add-single-agent-fixed-workflow.md) — `superseeded`
+- [0011: Add mandatory draft verification and opt-in smoke execution](decision/0011-add-mandatory-draft-verification.md) — `accepted`
 
 ## Product records
 

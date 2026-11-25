@@ -8,7 +8,10 @@ const logger = createLogger('api')
 
 export const app = new Hono()
 
-app.use('*', requestLogger((message) => logger.info(message)))
+app.use(
+  '*',
+  requestLogger((message) => logger.info(message)),
+)
 
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
 
