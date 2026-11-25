@@ -63,6 +63,7 @@ import { createLogger } from '@kerja-woy/logger'
 const logger = createLogger('my-service')
 logger.info('Started')
 logger.error('Request failed', new Error('Example'))
+
 ```
 
 The logger exports built JavaScript and TypeScript declarations. API development
