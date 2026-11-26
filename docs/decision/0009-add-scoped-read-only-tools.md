@@ -1,6 +1,9 @@
 # 0009: Add scoped read-only tools and Node unit tests
 
-Status: accepted
+Status: superseeded
+
+Replaced by [0014](0014-simplify-source-only-agent-package.md). Tool isolation is
+retained in self-contained modules; agent tests and fixtures are deferred.
 
 ## Context
 

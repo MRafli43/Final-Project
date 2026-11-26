@@ -1,16 +1,13 @@
 import { zValidator } from '@hono/zod-validator'
-import { createLogger } from '@kerja-woy/logger'
 import { Hono } from 'hono'
 import { logger as requestLogger } from 'hono/logger'
 import { z } from 'zod'
-
-const logger = createLogger('api')
 
 export const app = new Hono()
 
 app.use(
   '*',
-  requestLogger((message) => logger.info(message)),
+  requestLogger((message) => console.info(message)),
 )
 
 app.get('/api/health', (c) => c.json({ status: 'ok' }))
@@ -25,6 +22,6 @@ app.get(
 )
 
 app.onError((error, c) => {
-  logger.error('Unhandled request error', error)
+  console.error('Unhandled request error', error)
   return c.json({ error: 'Internal server error' }, 500)
 })

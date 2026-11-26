@@ -9,7 +9,7 @@ apps/
   api/          Hono + Zod + @hono/zod-validator (Node.js)
   platform/     React + Vite + TanStack Router (file-based routing)
 packages/
-  logger/       Shared console logger
+  agents/       Source-only Anvia agent and scoped read-only tools
 ```
 
 ## Getting started
@@ -96,16 +96,61 @@ only a static preview and does not configure the production API proxy.
 `GET /api/hello` validates the optional `name` query parameter with Zod and
 `zValidator`; invalid input returns HTTP 400.
 
-## Shared logger
+## Agent and server environment
 
-```ts
-import { createLogger } from '@kerja-woy/logger'
+Copy `.env.example` to the root `.env` only if `.env` does not already exist.
+Preserve existing credentials. Root `.env` is ignored by Git; secret examples are
+blank placeholders. API dev/start load it using `--env-file-if-exists`; existing
+process variables take precedence. The platform does not load this root file.
+Never put credentials in `VITE_*` variables or import agents into frontend code.
 
-const logger = createLogger('my-service')
-logger.info('Started')
-logger.error('Request failed', new Error('Example'))
+`MODEL_API_KEY` is required when creating the model. `MODEL_BASE_URL` defaults to
+`https://gateway.devscale.id/v1`; `MODEL_ID` defaults to `deepseek-v4.1-flash`.
+Explicit empty overrides are invalid. Initialization is lazy and uses Chat
+Completions. Lint, typecheck, and build make no model calls.
+
+```text
+packages/agents/
+  package.json
+  tsconfig.json
+  src/
+    index.ts
+    prompts/instruction.ts
+    tools/get-profile.ts
+    tools/search-facts.ts
+    tools/check-duplicate.ts
+    tools/web-search.ts
 ```
 
-The logger exports built JavaScript and TypeScript declarations. API development
-builds it automatically; after editing the logger, run
-`pnpm --filter @kerja-woy/logger build` again.
+The package exports TypeScript source. Server consumers need a TypeScript-aware
+runtime/bundler such as tsx; do not expect agents/dist. Build only typechecks and
+emits no files. No current application imports agents or exposes a model endpoint.
+
+`runAgent(options)` returns Anvia `AgentStream`. Supply authenticated
+`context: { userId, requestId }`, injected `dependencies: { profiles, facts,
+applications }`, and either `prompt` or `messages`. Each tool owns its adapter
+interface and factory. Missing adapters fail clearly; there is no fake/default
+retrieval. Underlying queries must be user-scoped; cross-user results are rejected.
+Optional `onFacts` receives retrieved confirmed facts. Model instance/configuration
+overrides and `abortSignal` are supported.
+
+Prompt input supports optional injected SDK memory and an authorized session.
+Callers must authorize session IDs and isolate memory stores; session user is
+bound to trusted context. Messages input cannot also use memory/session. No
+persistence adapter is included. Runs retain a 60-second deadline, four SDK turns,
+sequential tools, disabled retries, and a 4000-token call limit. The separate
+six-execution tool budget was removed with the workflow.
+
+Streams are **unverified and never ready-to-send**. The fixed workflow, independent
+draft verifier, agent tests, smoke runner, and PRD 40-case eval suite are deferred,
+not replaced by prompt instructions. Persistence, PDF, Telegram, MCP, production
+RAG, and Anvia Lens remain outstanding. Existing application E2E tests remain.
+API logging now uses basic console calls rather than a shared logger package.
+
+Optional public web searches use Tavily and require server-only `TAVILY_API_KEY`,
+read lazily at tool invocation. Queries are limited to 500 characters and five
+results with a 15-second request timeout. Do not send CV text, candidate personal
+data, private facts, or credentials. This restriction is prompt/tool guidance, not
+a privacy-filter guarantee. Results are untrusted and must cite source URLs;
+snippets do not verify contact emails or job legitimacy. No live search is needed
+for typecheck or build.
