@@ -1,6 +1,6 @@
 # 0008: Establish the Anvia agent foundation
 
-Status: accepted
+Status: superseeded
 
 ## Context
 
@@ -46,6 +46,10 @@ generic handler helper without an AI SDK.
 - No live model calls or persistence are provided.
 
 ## Notes
+
+Replaced by [0012: Consolidate model setup and configure defaults](0012-consolidate-model-setup-and-defaults.md).
+The original no-default configuration policy below is historical; the remaining
+foundation conventions are retained by the replacement.
 
 Reference: https://github.com/Devscale-Indonesia/anvia-fullstack-app/tree/main/packages/agents
 

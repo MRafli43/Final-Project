@@ -1,6 +1,9 @@
 # 0001: Use a pnpm workspace
 
-Status: accepted
+Status: superseeded
+
+Replaced by [0014](0014-simplify-source-only-agent-package.md) for logger removal.
+The pnpm workspace conventions otherwise remain in effect.
 
 ## Context
 

@@ -1,6 +1,9 @@
 # 0011: Add mandatory draft verification and opt-in smoke execution
 
-Status: accepted
+Status: superseeded
+
+Replaced by [0014](0014-simplify-source-only-agent-package.md). Workflow,
+verification, smoke execution, and agent tests are deferred.
 
 ## Context
 
